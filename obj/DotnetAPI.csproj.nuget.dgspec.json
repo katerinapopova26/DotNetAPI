@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Programming\\dotnet-API\\DotnetAPI\\DotnetAPI.csproj": {}
+    "E:\\Programming\\dotnet-API\\DOTNETAPI\\DotnetAPI.csproj": {}
   },
   "projects": {
-    "E:\\Programming\\dotnet-API\\DotnetAPI\\DotnetAPI.csproj": {
+    "E:\\Programming\\dotnet-API\\DOTNETAPI\\DotnetAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Programming\\dotnet-API\\DotnetAPI\\DotnetAPI.csproj",
+        "projectUniqueName": "E:\\Programming\\dotnet-API\\DOTNETAPI\\DotnetAPI.csproj",
         "projectName": "DotnetAPI",
-        "projectPath": "E:\\Programming\\dotnet-API\\DotnetAPI\\DotnetAPI.csproj",
+        "projectPath": "E:\\Programming\\dotnet-API\\DOTNETAPI\\DotnetAPI.csproj",
         "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-        "outputPath": "E:\\Programming\\dotnet-API\\DotnetAPI\\obj\\",
+        "outputPath": "E:\\Programming\\dotnet-API\\DOTNETAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
