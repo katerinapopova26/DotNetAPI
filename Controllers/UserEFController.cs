@@ -14,12 +14,14 @@ namespace DotnetAPI.Controllers;
 public class UserEFController : ControllerBase
 {
     DataContextEF _entityFramework;
-
+    IUserRepository _userRepository;
     IMapper _mapper;
 
-    public UserEFController(IConfiguration config)
+    public UserEFController(IConfiguration config, IUserRepository userRepository)
     {
         _entityFramework = new DataContextEF(config);
+        _userRepository = userRepository;
+    
         _mapper = new Mapper(new MapperConfiguration(cfg =>
         {
             cfg.CreateMap<UserToAddDto, User>();
@@ -44,6 +46,7 @@ public class UserEFController : ControllerBase
         User? user = _entityFramework.Users
         .Where(u => u.UserId == userId)
         .FirstOrDefault<User>();
+             
         if (user != null)
         {
             return user;
@@ -65,7 +68,7 @@ public class UserEFController : ControllerBase
             userDb.LastName = user.LastName;
             userDb.Email = user.Email;
             userDb.Gender = user.Gender;
-            if (_entityFramework.SaveChanges() > 0)
+            if (_userRepository.SaveChanges())
             {
                 return Ok();
             }
@@ -80,9 +83,9 @@ public class UserEFController : ControllerBase
     public IActionResult AddUser(UserToAddDto user)
     {
         User userDb = _mapper.Map<User>(user);
-        _entityFramework.Add(userDb);
+        _userRepository.AddEntity<User>(userDb);
 
-        if (_entityFramework.SaveChanges() > 0)
+        if (_userRepository.SaveChanges())
         {
             return Ok();
         }
@@ -99,9 +102,9 @@ public class UserEFController : ControllerBase
 
         if (userDb != null)
         {
-            _entityFramework.Users.Remove(userDb);
+            _userRepository.RemoveEntity<User>(userDb);
 
-            if (_entityFramework.SaveChanges() > 0)
+            if (_userRepository.SaveChanges())
             {
                 return Ok();
             }
@@ -124,9 +127,10 @@ public class UserEFController : ControllerBase
     [HttpPost("UserSalary")]
     public IActionResult PostUserSalaryEf(UserSalary userForInsert)
     {
-        _entityFramework.UserSalary.Add(userForInsert);
 
-        if (_entityFramework.SaveChanges() > 0)
+        _userRepository.AddEntity<UserSalary>(userForInsert);
+
+        if (_userRepository.SaveChanges())
         {
             return Ok();
         }
@@ -145,7 +149,7 @@ public class UserEFController : ControllerBase
         {
             _mapper.Map(userForUpdate, userToUpdate);
 
-            if (_entityFramework.SaveChanges() > 0)
+            if (_userRepository.SaveChanges())
             {
                 return Ok();
             }
@@ -164,9 +168,9 @@ public class UserEFController : ControllerBase
 
         if (userToDelete != null)
         {
-            _entityFramework.UserSalary.Remove(userToDelete);
+            _userRepository.RemoveEntity<UserSalary>(userToDelete);
 
-            if (_entityFramework.SaveChanges() > 0)
+            if (_userRepository.SaveChanges())
             {
                 return Ok();
             }
@@ -190,9 +194,9 @@ public class UserEFController : ControllerBase
     [HttpPost("UserJobInfo")]
     public IActionResult PostUserJobInfoEf(UserJobInfo userForInsert)
     {
-        _entityFramework.UserJobInfo.Add(userForInsert);
+         _userRepository.AddEntity<UserJobInfo>(userForInsert);
 
-        if (_entityFramework.SaveChanges() > 0)
+        if (_userRepository.SaveChanges())
         {
             return Ok();
         }
@@ -211,7 +215,7 @@ public class UserEFController : ControllerBase
         {
             _mapper.Map(userForUpdate, userToUpdate);
 
-            if (_entityFramework.SaveChanges() > 0)
+            if (_userRepository.SaveChanges())
             {
                 return Ok();
             }
@@ -230,9 +234,9 @@ public class UserEFController : ControllerBase
 
         if (userToDelete != null)
         {
-            _entityFramework.UserJobInfo.Remove(userToDelete);
+             _userRepository.RemoveEntity<UserJobInfo>(userToDelete);
 
-            if (_entityFramework.SaveChanges() > 0)
+            if (_userRepository.SaveChanges())
             {
                 return Ok();
             }
